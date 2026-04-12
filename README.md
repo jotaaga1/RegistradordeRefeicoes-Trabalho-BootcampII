@@ -4,19 +4,23 @@ Permite registrar refeições, acompanhar calorias e facilitar decisões para um
 =======
 # Nome do Projeto
 
-![CI](https://github.com/seu-usuario/seu-repositorio/actions/workflows/ci.yml/badge.svg)
+![CI](https://github.com/jotaaga1/RegistradordeRefeicoes-Trabalho-BootcampII/actions/workflows/ci.yml)
 
 ## Descrição do Problema
 
-Descreva aqui a dor real que sua aplicação resolve. Seja específico: quem sofre com esse problema, em que contexto ele ocorre e qual o impacto.
+Muitas pessoas têm dificuldade em manter uma alimentação equilibrada por falta de controle sobre o que consomem no dia a dia.
+Sem um acompanhamento simples, fica difícil monitorar calorias, identificar excessos e manter hábitos saudáveis.
 
 ## Proposta de Solução
 
-Explique como sua aplicação ajuda a resolver ou amenizar o problema descrito acima.
-
+O Registrador de Refeições permite que o usuário registre suas refeições de forma prática, acompanhando calorias e tipos de alimentação ao longo do tempo.
+A aplicação facilita a visualização dos dados e ajuda na tomada de decisões para uma alimentação mais consciente.
 ## Público-alvo
 
-Descreva quem são os usuários da aplicação (ex: estudantes, idosos, microempreendedores, cuidadores etc.).
+Pessoas que querem melhorar a alimentação
+Usuários que desejam controlar ingestão de calorias
+Praticantes de atividades físicas
+Qualquer pessoa interessada em hábitos saudáveis
 
 ## Funcionalidades
 
