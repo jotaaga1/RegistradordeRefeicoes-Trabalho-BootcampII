@@ -1,33 +1,42 @@
 import pytest
 from django.utils import timezone
-from refeicoes.models import Despesa
+from refeicoes.models import Refeicao
+
 
 @pytest.mark.django_db
-def test_criar_despesa():
-    """Testa a criação de uma despesa."""
-    despesa = Despesa.objects.create(
-        descricao="Almoço",
-        valor=25.50,
-        categoria="alimentacao",
+def test_criar_refeicao():
+    refeicao = Refeicao.objects.create(
+        nome="Almoço",
+        calorias=500,
+        tipo="almoco",
         data=timezone.now().date(),
     )
-    assert despesa.pk is not None
-    assert despesa.descricao == "Almoço"
-    assert despesa.valor == 25.50
-    assert despesa.categoria == "alimentacao"
+    assert refeicao.pk is not None
+    assert refeicao.nome == "Almoço"
+    assert refeicao.calorias == 500
+    assert refeicao.tipo == "almoco"
 
 
 @pytest.mark.django_db
-def test_str_despesa():
-    """Testa a representação em string de uma despesa."""
-    despesa = Despesa(descricao="Transporte", valor=15.00)
-    assert str(despesa) == "Transporte — R$ 15.00"
+def test_str_refeicao():
+    refeicao = Refeicao(nome="Jantar", calorias=700)
+    assert str(refeicao) == "Jantar — 700 kcal"
+
 
 @pytest.mark.django_db
-def test_listagem_despesas():
-    """Testa a listagem de despesas."""
-    Despesa.objects.create(descricao="Cinema", valor=30.00, categoria="lazer", data=timezone.now().date())
-    Despesa.objects.create(descricao="Supermercado", valor=100.00, categoria="alimentacao", data=timezone.now().date())
-    
-    despesas = Despesa.objects.all()
-    assert despesas.count() == 2
+def test_listagem_refeicoes():
+    Refeicao.objects.create(
+        nome="Café da manhã",
+        calorias=300,
+        tipo="cafe",
+        data=timezone.now().date(),
+    )
+    Refeicao.objects.create(
+        nome="Lanche",
+        calorias=200,
+        tipo="lanche",
+        data=timezone.now().date(),
+    )
+
+    refeicoes = Refeicao.objects.all()
+    assert refeicoes.count() == 2
