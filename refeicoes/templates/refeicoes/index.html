@@ -1,0 +1,98 @@
+{% extends "refeicoes/base.html" %}
+
+{% block title %}Minhas Refeições — Registrador de Refeições{% endblock %}
+
+{% block content %}
+<div class="row mb-4">
+    <div class="col-md-4 mb-3">
+        <div class="card border-0 bg-success text-white">
+            <div class="card-body text-center">
+                <h6 class="card-title">Total de Calorias</h6>
+                <h2 class="fw-bold">{{ total_calorias }}</h2>
+                <small>{{ mes_atual }}</small>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-8 mb-3">
+        <div class="card">
+            <div class="card-header fw-semibold">Resumo por Tipo</div>
+            <div class="card-body p-2">
+                {% if resumo %}
+                    <div class="row g-2">
+                    {% for item in resumo %}
+                        <div class="col-6 col-md-4">
+                            <div class="border rounded p-2 text-center">
+                                <small class="text-muted d-block">{{ item.nome }}</small>
+                                <strong>{{ item.total }} kcal</strong>
+                            </div>
+                        </div>
+                    {% endfor %}
+                    </div>
+                {% else %}
+                    <p class="text-muted mb-0 text-center">Nenhuma refeição registrada ainda.</p>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="d-flex justify-content-between align-items-center mb-3 flex-wrap gap-2">
+    <form method="get" class="d-flex gap-2 align-items-center">
+        <select name="tipo" class="form-select form-select-sm" style="width: auto;">
+            <option value="">Todos os tipos</option>
+            {% for cod, nome in tipos %}
+                <option value="{{ cod }}" {% if tipo_filtro == cod %}selected{% endif %}>{{ nome }}</option>
+            {% endfor %}
+        </select>
+        <button type="submit" class="btn btn-sm btn-outline-secondary">Filtrar</button>
+        {% if tipo_filtro %}
+            <a href="{% url 'refeicoes:index' %}" class="btn btn-sm btn-link text-danger">Limpar</a>
+        {% endif %}
+    </form>
+    <a href="{% url 'refeicoes:adicionar' %}" class="btn btn-success btn-sm">+ Nova Refeição</a>
+</div>
+
+<div class="card">
+    <div class="card-body p-0">
+        {% if refeicoes %}
+        <div class="table-responsive">
+            <table class="table table-hover mb-0">
+                <thead class="table-light">
+                    <tr>
+                        <th>Nome</th>
+                        <th>Tipo</th>
+                        <th>Data</th>
+                        <th class="text-end">Calorias</th>
+                        <th class="text-center">Ações</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for refeicao in refeicoes %}
+                    <tr>
+                        <td>{{ refeicao.nome }}</td>
+                        <td>
+                            <span class="badge bg-secondary">
+                                {{ refeicao.get_tipo_display }}
+                            </span>
+                        </td>
+                        <td>{{ refeicao.data|date:"d/m/Y" }}</td>
+                        <td class="text-end fw-semibold text-danger">{{ refeicao.calorias }} kcal</td>
+                        <td class="text-center">
+                            <a href="{% url 'refeicoes:editar' refeicao.pk %}" class="btn btn-sm btn-outline-primary">Editar</a>
+                            <a href="{% url 'refeicoes:excluir' refeicao.pk %}" class="btn btn-sm btn-outline-danger">Excluir</a>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+        {% else %}
+        <div class="text-center py-5 text-muted">
+            <p class="fs-5">Nenhuma refeição encontrada.</p>
+            <a href="{% url 'refeicoes:adicionar' %}" class="btn btn-success">Adicionar primeira refeição</a>
+        </div>
+        {% endif %}
+    </div>
+</div>
+{% endblock %}
