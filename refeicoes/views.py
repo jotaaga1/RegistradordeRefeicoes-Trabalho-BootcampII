@@ -6,6 +6,24 @@ from django.utils import timezone
 from .forms import RefeicaoForm
 from .models import TIPOS_REFEICAO, Refeicao
 
+from django.shortcuts import render
+from .services import buscar_alimento
+
+def adicionar_refeicao(request):
+
+    alimento = None
+
+    if request.method == "POST":
+        nome = request.POST.get("descricao")
+
+        dados = buscar_alimento(nome)
+
+        if dados["foods"]:
+            alimento = dados["foods"][0]
+
+    return render(request, "refeicoes/adicionar.html", {
+        "alimento": alimento
+    })
 
 def index(request):
     refeicoes = Refeicao.objects.all()

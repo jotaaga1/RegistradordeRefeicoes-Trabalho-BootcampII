@@ -1,0 +1,24 @@
+<form method="POST">
+    {% csrf_token %}
+
+    <input type="text" name="descricao"
+           placeholder="Ex: arroz">
+
+    <button type="submit">
+        Buscar
+    </button>
+</form>
+
+{% if alimento %}
+    <h2>{{ alimento.description }}</h2>
+
+    <ul>
+        {% for nutriente in alimento.foodNutrients %}
+            <li>
+                {{ nutriente.nutrientName }}:
+                {{ nutriente.value }}
+                {{ nutriente.unitName }}
+            </li>
+        {% endfor %}
+    </ul>
+{% endif %}
